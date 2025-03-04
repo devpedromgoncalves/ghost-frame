@@ -1,0 +1,12 @@
+<div class="p-6 sm:p-8">
+  <div class="text-lg font-medium mb-4">Skeleton Preview</div>
+
+  <div class="w-full h-50 p-2 border border-surface rounded overflow-auto">
+    <div *ngIf="hasContent; else noContent" [innerHTML]="inputCode"></div>
+    <ng-template #noContent>
+      <div class="flex items-center justify-center h-full text-gray-400">
+        Insert your code to preview the skeleton
+      </div>
+    </ng-template>
+  </div>
+</div>

@@ -1,0 +1,111 @@
+<div class="p-6 sm:p-8">
+  <div class="flex justify-between items-center mb-4">
+    <span class="text-lg font-medium">Input Code</span>
+
+    <button
+      pButton
+      size="small"
+      severity="primary"
+      label="Options"
+      (click)="showOptions = !showOptions"
+    >
+      <lucide-icon
+        size="16px"
+        [name]="showOptions ? ChevronUp : ChevronDown"
+        class="transition-transform duration-500"
+        [ngClass]="{ 'rotate-360': showOptions }"
+      ></lucide-icon>
+    </button>
+  </div>
+
+  <!-- Opções do Skeleton -->
+  <div *ngIf="showOptions" class="mb-4 p-4 border border-surface rounded-lg">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <!-- Cor de fundo -->
+      <div>
+        <label class="block mb-1 text-sm">Background Color</label>
+        <p-colorPicker
+          [(ngModel)]="backgroundColor"
+          (onChange)="applyOptions()"
+          class="w-full"
+        ></p-colorPicker>
+      </div>
+
+      <!-- Animação -->
+      <div>
+        <label class="block mb-1 text-sm">Animation</label>
+        <select
+          [(ngModel)]="animation"
+          (change)="applyOptions()"
+          class="w-full p-2 border rounded"
+        >
+          <option *ngFor="let anim of animations" [value]="anim.value">
+            {{ anim.label }}
+          </option>
+        </select>
+      </div>
+
+      <!-- Border Radius -->
+      <div>
+        <label class="block mb-1 text-sm">Border Radius</label>
+        <select
+          [(ngModel)]="borderRadius"
+          (change)="applyOptions()"
+          class="w-full p-2 border rounded"
+        >
+          <option
+            *ngFor="let radius of borderRadiusOptions"
+            [value]="radius.value"
+          >
+            {{ radius.label }}
+          </option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Opções de comportamento -->
+    <div class="mt-4">
+      <h4 class="text-sm font-medium mb-2">Behavior Options</h4>
+
+      <!-- Preservar estrutura -->
+      <div class="form-group">
+        <label class="flex items-center mb-2">
+          <input
+            type="checkbox"
+            [(ngModel)]="preserveStructure"
+            (change)="applyOptions()"
+            class="mr-2"
+          />
+          <span class="text-sm">Preserve HTML structure and spacing</span>
+        </label>
+      </div>
+    </div>
+
+    <!-- Botão para resetar opções -->
+    <button
+      (click)="resetOptions()"
+      class="mt-3 px-3 py-1 text-sm bg-gray-200 text-gray-800 rounded hover:bg-gray-300 cursor-pointer"
+    >
+      Reset to Default
+    </button>
+  </div>
+
+  <!-- Textarea para código HTML -->
+  <div class="overflow-y-auto">
+    <p-iftalabel>
+      <textarea
+        pTextarea
+        [(ngModel)]="inputCode"
+        (ngModelChange)="onCodeChange()"
+        placeholder="Paste your component here... Example:
+        <div>
+          <h1>Welcome to my app</h1>
+          <p>This is some content that will generate multiple lines in the skeleton</p>
+          <button>Click me</button>
+        </div>"
+        style="resize: none"
+        class="w-full h-50 p-2 border rounded"
+      ></textarea>
+    </p-iftalabel>
+  </div>
+</div>
