@@ -5,6 +5,7 @@ import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import Aura from '@primeng/themes/aura';
 import { definePreset } from '@primeng/themes';
+import { provideHttpClient } from '@angular/common/http';
 
 const ghostTheme = definePreset(Aura, {
   semantic: {
@@ -374,6 +375,7 @@ const ghostTheme = definePreset(Aura, {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideAnimationsAsync(),
@@ -381,7 +383,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: ghostTheme,
         options: {
-          darkModeSelector: '.dark-mode',
+          darkModeSelector: false,
           ripple: true,
         },
       },

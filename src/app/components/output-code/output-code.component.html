@@ -1,35 +1,39 @@
-<div class="p-6 sm:p-8">
+@if(skeletonCode){
+<div class="p-2 sm:p-4">
   <div class="flex justify-between items-center mb-4">
-    <span class="text-lg font-medium">Output Skeleton</span>
+    <!-- Container title -->
+    <span class="text-md font-semibold">Output Skeleton Code</span>
+  </div>
 
+  <!-- Textarea with the content -->
+  <div>
+    <textarea
+      pTextarea
+      [(ngModel)]="skeletonCode"
+      style="resize: none"
+      readonly
+      class="w-full h-40 p-2 border rounded"
+    ></textarea>
+  </div>
+
+  <!-- Copy button -->
+  <div class="flex justify-end mt-4">
     <button
+      class="hover:shadow-lg transition-shadow duration-500"
       pButton
       size="small"
       severity="primary"
       (click)="copyToClipboard()"
       [disabled]="!skeletonCode"
-      class="disabled:opacity-50 disabled:cursor-not-allowed"
-      [label]="isCopied ? 'Copied!' : 'Copy to clipboard'"
+      [label]="isCopied ? 'Copied!' : 'Copy'"
     >
       <lucide-icon
         size="16px"
         [name]="isCopied ? ClipboardCheck : Clipboard"
-        class="transition-transform duration-500"
       ></lucide-icon>
     </button>
   </div>
-
-  <div>
-    <p-iftalabel>
-      <textarea
-        pTextarea
-        [(ngModel)]="skeletonCode"
-        style="resize: none"
-        readonly
-        class="w-full h-40 p-2 border rounded"
-      ></textarea>
-    </p-iftalabel>
-  </div>
 </div>
+}
 
 <p-toast position="top-right"></p-toast>

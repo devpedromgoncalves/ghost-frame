@@ -1,12 +1,75 @@
-<div class="p-6 sm:p-8">
-  <div class="text-lg font-medium mb-4">Skeleton Preview</div>
+<div class="p-2 sm:p-4">
+  <div class="flex justify-between items-center mb-4">
+    <!-- Container title -->
+    <span class="text-md font-semibold">Skeleton Preview</span>
 
-  <div class="w-full h-50 p-2 border border-surface rounded overflow-auto">
-    <div *ngIf="hasContent; else noContent" [innerHTML]="inputCode"></div>
-    <ng-template #noContent>
-      <div class="flex items-center justify-center h-full text-gray-400">
-        Insert your code to preview the skeleton
-      </div>
-    </ng-template>
+    <!-- Maximize button to open the dialog -->
+    <div class="flex items-end">
+      @if(inputCode){
+      <button
+        pButton
+        size="small"
+        severity="primary"
+        pTooltip="Maximize"
+        tooltipPosition="top"
+        showDelay="200"
+        [rounded]="true"
+        [text]="true"
+        (click)="showSkeletonDialog = true"
+      >
+        <lucide-icon
+          (click)="showSkeletonDialog = true"
+          size="14px"
+          [name]="Maximize"
+        ></lucide-icon>
+      </button>
+
+      <!-- Dialog -->
+      <p-dialog
+        [(visible)]="showSkeletonDialog"
+        [modal]="true"
+        [closable]="true"
+        [style]="{ width: '80vw', height: '80vh' }"
+        styleClass="p-1"
+      >
+        <div
+          style="resize: none"
+          readonly
+          [innerHTML]="inputCode"
+          class="w-full h-50 p-2"
+        ></div>
+      </p-dialog>
+      }
+    </div>
   </div>
+
+  <!-- Textarea with the content -->
+  <div class="relative">
+    <div
+      style="resize: none"
+      readonly
+      [innerHTML]="inputCode"
+      class="w-full h-50 p-2 border rounded bg-white"
+    ></div>
+  </div>
+
+  <!-- Generate button -->
+  @if(inputCode){
+  <div class="flex justify-end mt-6">
+    <button
+      class="hover:shadow-lg transition-shadow duration-500"
+      pButton
+      size="small"
+      severity="primary"
+      [label]="skeletonLoading ? 'Reseting...' : 'Reset'"
+      [disabled]="!inputCode || skeletonLoading"
+      [loading]="skeletonLoading"
+      (click)="resetSkeleton()"
+    >
+      @if(!skeletonLoading){
+      <lucide-icon size="16px" [name]="RotateCCW"></lucide-icon>
+      }
+    </button>
+  </div>
+  }
 </div>

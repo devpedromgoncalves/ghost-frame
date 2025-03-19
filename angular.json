@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-ghost-frame": {
+    "ghost-frame": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/angular-ghost-frame",
+            "outputPath": "dist/ghost-frame",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": ["zone.js"],
@@ -55,10 +55,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-ghost-frame:build:production"
+              "buildTarget": "ghost-frame:build:production"
             },
             "development": {
-              "buildTarget": "angular-ghost-frame:build:development"
+              "buildTarget": "ghost-frame:build:development"
             }
           },
           "defaultConfiguration": "development"

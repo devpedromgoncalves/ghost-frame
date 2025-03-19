@@ -1,18 +1,18 @@
 @import "tailwindcss";
 @import "tailwindcss-primeui";
 
+:root {
+  /* --font-primary: "Oxygen", sans-serif; */
+  --font-secondary: "Space Grotesk", sans-serif;
+}
+
 html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Readex Pro", serif;
+  /* font-family: var(--font-primary); */
 }
 
-body {
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
-}
-
-body.dark-mode {
-  background-color: #121212;
-  color: #ffffff;
+.title-text {
+  font-family: var(--font-secondary);
 }

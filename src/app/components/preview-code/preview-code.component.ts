@@ -1,46 +1,68 @@
 import { Component } from '@angular/core';
-import { SkeletonService } from '../../services/skeleton.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommonModule } from '@angular/common';
+import { SkeletonAiService } from '../../services/skeletonAi.service';
+import { ToastModule } from 'primeng/toast';
+import { LucideAngularModule, Maximize2, RotateCcw } from 'lucide-angular';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { TooltipModule } from 'primeng/tooltip';
 
 @Component({
-  imports: [CommonModule],
+  imports: [
+    CommonModule,
+    ToastModule,
+    LucideAngularModule,
+    DialogModule,
+    ButtonModule,
+    TooltipModule,
+  ],
   selector: 'app-preview-code',
   templateUrl: './preview-code.component.html',
   styleUrls: ['./preview-code.component.css'],
 })
 export class PreviewCodeComponent {
+  /**
+   * The input code to generate the skeleton from
+   */
   inputCode: SafeHtml = '';
-  hasContent: boolean = false;
+
+  /**
+   * Whether the skeleton dialog is currently being shown
+   */
+  showSkeletonDialog = false;
+
+  /**
+   * Whether the skeleton is currently being generated
+   */
+  skeletonLoading = false;
+
+  /**
+   * Lucide Icons
+   */
+  Maximize = Maximize2;
+  RotateCCW = RotateCcw;
 
   constructor(
-    private skeletonService: SkeletonService,
+    private skeletonAiService: SkeletonAiService,
     private sanitizer: DomSanitizer
   ) {
-    this.skeletonService.inputCode$.subscribe((skeleton) => {
-      this.hasContent = !!skeleton.trim(); // Verifica se há conteúdo no código
-      this.inputCode = this.sanitizer.bypassSecurityTrustHtml(
-        this.modifySkeleton(skeleton)
-      );
+    // Subscribe to the input code changes
+    this.skeletonAiService.inputCode$.subscribe((skeleton) => {
+      // If there is a skeleton, update the input code using the sanitizer
+      if (skeleton) {
+        this.inputCode = this.sanitizer.bypassSecurityTrustHtml(skeleton);
+      }
     });
   }
 
-  // Função para modificar o conteúdo do skeleton e esconder o conteúdo real
-  modifySkeleton(html: string): string {
-    if (!html.trim()) {
-      return html; // Caso o código esteja vazio, retorna o conteúdo original
-    }
+  resetSkeleton() {
+    this.skeletonLoading = true;
 
-    // Aqui vamos remover o conteúdo real dentro das tags, mas manter a estrutura da tag HTML
-    return html.replace(
-      /(<[^>]+>)([^<]*)(<\/[^>]+>)/g,
-      (match, openingTag, content, closingTag) => {
-        // Se o conteúdo estiver vazio ou for apenas espaços em branco, ocultamos ele
-        if (!content.trim()) {
-          return `${openingTag}<!-- Skeleton Rendered -->${closingTag}`;
-        }
-        return match;
-      }
-    );
+    setTimeout(() => {
+      this.skeletonAiService.clearSkeleton();
+      this.inputCode = '';
+      this.skeletonLoading = false;
+    }, 1000);
   }
 }
