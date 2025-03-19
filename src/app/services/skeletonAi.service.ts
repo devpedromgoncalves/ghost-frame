@@ -2,6 +2,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { BehaviorSubject, catchError, map, tap, throwError } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -10,8 +11,7 @@ export class SkeletonAiService {
   /**
    * API Key for authentication
    */
-  private apiKey =
-    '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';
+  private apiKey = environment.apiKey;
 
   /**
    * API Url for the skeleton generation
