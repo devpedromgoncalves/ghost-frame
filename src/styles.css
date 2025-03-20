@@ -2,7 +2,6 @@
 @import "tailwindcss-primeui";
 
 :root {
-  /* --font-primary: "Oxygen", sans-serif; */
   --font-secondary: "Space Grotesk", sans-serif;
 }
 
@@ -10,9 +9,8 @@ html {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* font-family: var(--font-primary); */
 }
 
-.title-text {
+.secondary-font {
   font-family: var(--font-secondary);
 }
