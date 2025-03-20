@@ -19,6 +19,13 @@ import { MessageService } from 'primeng/api';
 import { SkeletonAiService } from './services/skeletonAi.service';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { ToastModule } from 'primeng/toast';
+import {
+  trigger,
+  state,
+  style,
+  transition,
+  animate,
+} from '@angular/animations';
 
 @Component({
   selector: 'root',
@@ -38,6 +45,27 @@ import { ToastModule } from 'primeng/toast';
   providers: [MessageService, SkeletonAiService, HttpClient],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
+  animations: [
+    trigger('fadeInOut', [
+      state(
+        'void',
+        style({
+          // Starts invisible
+          opacity: 0,
+        })
+      ),
+      transition(':enter', [
+        animate(
+          // Duration and easing
+          '1.5s ease-in-out',
+          style({
+            // Ends visible
+            opacity: 1,
+          })
+        ),
+      ]),
+    ]),
+  ],
 })
 export class AppComponent implements OnInit {
   /**
