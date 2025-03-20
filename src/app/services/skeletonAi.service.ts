@@ -56,7 +56,7 @@ export class SkeletonAiService {
     4. **NEVER include any text content in the skeleton**
     5. ALWAYS include animate-pulse class in the root div
     6. Return ONLY the component structure without quotes around class values
-    7. NEVER include src, alt, or other unnecessary attributes
+    7. **NEVER include src, alt, or other unnecessary attributes**
     8. Use self-closing tags when possible (no need for />)
     9. Mandatory default dimensions for elements (if there are no specific dimensions in the original code):
    - div: w-full
@@ -73,6 +73,7 @@ export class SkeletonAiService {
    12. Use rounded-md for buttons and inputs
    13. Use rounded-full for avatars/circles
    14. **Do NOT modify class values. If mb-3 is present, return exactly mb-3, do not replace it with mb-2 or mb-4. The same applies to any other class.**
+   15. **NEVER include the img, svg, png content in the skeleton, instead render them as a skeleton also.**
 
 Example output format:
 <div class="flex items-center justify-between animate-pulse">
